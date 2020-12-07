@@ -1,7 +1,7 @@
 Description:
-  This template sets up the workshop application on an AutoScaling group,
+  This template sets up the application on an AutoScaling group,
   behind an Application Load Balancer, with a CodeDeploy application.
-  The workshop will need one stack of this template per team.
+  One stack of this template is needed per branch.
 
 Parameters:
   BranchName:
@@ -10,18 +10,18 @@ Parameters:
   RepositoryName:
     Description: GitHub repository name
     Type: String
-    Default: grace-hopper-jeopardy
+    Default: php-deploy
   GitHubOwner:
     Type: String
   GitHubToken:
     Type: String
   SharedResourceStack:
-    Description: Name of an active CloudFormation stack that contains the shared workshop resources, such as the VPC.
+    Description: Name of an active CloudFormation stack that contains the shared resources
     Type: String
     MinLength: 1
     MaxLength: 255
     AllowedPattern: "^[a-zA-Z][-a-zA-Z0-9]*$"
-    Default: ghc-workshop-shared-resources
+    Default: php-shared
   LatestAmiId:
     Type: "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>"
     Default: "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"

@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
 
-cd /home/ec2-user/apex
+cd /home/ec2-user/phpdeploy
 
 cp -a index.php /var/www/html/

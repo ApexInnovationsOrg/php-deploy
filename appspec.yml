@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/apex
+    destination: /home/ec2-user/phpdeploy
 hooks:
   BeforeInstall:
     - location: deployment_scripts/install_dependencies

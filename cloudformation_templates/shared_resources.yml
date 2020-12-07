@@ -1,14 +1,13 @@
 
 Description:
-  This template sets up the shared resources for the workshop, including a VPC
-  and a CodeDeploy application. Only one stack of this template should be
-  necessary for a workshop.
+  This template sets up shared resources, including a VPC and a 
+  CodeDeploy application.
 
 Parameters:
   WorkshopName:
-    Description: A workshop name that will be prefixed to resource names
+    Description: A name prefixed to resource names
     Type: String
-    Default: ghc-workshop
+    Default: php
 
 Resources:
   CodeDeployApplication:
