@@ -4,5 +4,3 @@ set -ex
 cd /home/ec2-user/phpdeploy
 
 cp -a index.php /var/www/html/
-
-aws ssm get-parameters --with-decryption --names testeddieparameter eddietwo --output text --query "Parameters[*].Value" >> envfile | sed 's/[[:blank:]]\+/\n/g' envfile
