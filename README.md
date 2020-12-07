@@ -13,28 +13,22 @@ This application is deployed using AWS CloudFormation.
 * GitHubToken (never commit this value)
 * GitHubUser
 
-##### This solution require Shared Resource stack to be deployed as primary stack, then Applicaiton stack.
 
-|Stacks          |Deploy|
-|----------------|------|
-|Shared Resources| <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=ghc-workshop-shared-resources&templateURL=https://inf-training-resources.s3.amazonaws.com/grace-hopper-jeopardy/shared_resources.yml" target="_blank">![Launch](./img/launch-stack.png?raw=true "Launch")</a>|
-|Application     |<a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=ghc-workshop-application&templateURL=https://inf-training-resources.s3.amazonaws.com/grace-hopper-jeopardy/application.yml" target="_blank">![Launch](./img/launch-stack.png?raw=true "Launch")</a>|
----
 #### AWSCLI Deployment scenarios:
 * Local bash terminal
 * <a href="https://us-west-2.console.aws.amazon.com/cloud9/home?region=us-west-2">Cloud9</a> (Oregon)
 * <a href="https://us-west-2.console.aws.amazon.com/cloud9/home?region=us-west-2">Cloud9</a> (Oregon)
 
-This application will be deployed on EC2 Autoscaling Group nodes working behind an Application Load Balancer. It can be used as an example application in a workshop, with multiple stacks in the same account.
+This application will be deployed on EC2 Autoscaling Group nodes working behind an Application Load Balancer. Multiple stacks can be used in the same account.
 
 Create shared resources (create once):
 ```
-aws cloudformation deploy --stack-name ghc-workshop-shared-resources --template-file cloudformation_templates/shared_resources.yml --capabilities CAPABILITY_NAMED_IAM --parameter-overrides WorkshopName="ghc-workshop"
+aws cloudformation deploy --stack-name php-shared --template-file cloudformation_templates/shared_resources.yml --capabilities CAPABILITY_NAMED_IAM --parameter-overrides WorkshopName="php"
 ```
 
 Create website resources (can create multiple stacks for a workshop):
 ```
-aws cloudformation deploy --stack-name ghc-workshop-application-1 --template-file cloudformation_templates/application.yml --parameter-overrides SharedResourceStack="ghc-workshop-shared-resources"
+aws cloudformation deploy --stack-name php-main --template-file cloudformation_templates/application.yml --parameter-overrides SharedResourceStack="php-shared"
 ```
 
 Go to the CodePipeline console:
@@ -44,16 +38,16 @@ https://console.aws.amazon.com/codesuite/codepipeline/pipelines
 
 Once the deployment completes, go to the application URL:
 ```
-aws cloudformation describe-stacks --stack-name ghc-workshop-application-1 --query 'Stacks[0].Outputs[?OutputKey==`Url`].OutputValue' --output text
+aws cloudformation describe-stacks --stack-name php-main --query 'Stacks[0].Outputs[?OutputKey==`Url`].OutputValue' --output text
 ```
 ---
 #### Cleanup:
 1. Delete S3 objects for CodeSuite before deleting CloudFormation stacks
 1. Delete Stacks:
 ```
-aws cloudformation delete-stack --stack-name ghc-workshop-shared-resources
+aws cloudformation delete-stack --stack-name php-shared
 
-aws cloudformation delete-stack --stack-name ghc-workshop-application-1
+aws cloudformation delete-stack --stack-name php-main
 ```
 ---
 ## Credits
