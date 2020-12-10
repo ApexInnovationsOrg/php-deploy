@@ -1,4 +1,9 @@
 #!/bin/bash
 set -ex
 
-yum install -y httpd php
+yum install -y httpd
+
+
+amazon-linux-extras enable php7.3
+yum -y install php php-{pear,cgi,common,curl,mbstring,gd,mysqlnd,gettext,bcmath,json,xml,fpm,intl,zip,imap}
+
